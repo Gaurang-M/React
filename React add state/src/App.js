@@ -10,8 +10,9 @@ export class App extends React.Component{
     super(props);
     this.state = {
       topics : ['React','Webpack','Angular','Angular2'],
-      topic : "",
+      //topic : "",
     }
+    this.input;
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
   }
@@ -25,8 +26,9 @@ export class App extends React.Component{
   onKeyPress(e) {
     if(e.key === "Enter"){
       this.setState({
-        topics : [...this.state.topics,this.state.topic] // spread operator
+        topics : [...this.state.topics,/*this.state.topic*/ this.input.value] // spread operator
       })
+      this.input.value = "";
     }
   }
 
@@ -34,7 +36,7 @@ export class App extends React.Component{
     return (
       <div>
         <Title />
-        <input type="text" value={this.state.topic} onChange={this.inputChangeHandler} onKeyPress={this.onKeyPress}/>
+        <input ref={input => this.input = input} type="text" value={this.state.topic} /*onChange={this.inputChangeHandler}*/ onKeyPress={this.onKeyPress}/>
         {this.state.topics.map((topic,index) => {
           return <p key={index} >{topic}</p>
         })}
